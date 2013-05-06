@@ -1,8 +1,12 @@
 from lxml import etree
 from StringIO import StringIO
 import sys
+import rules
+
 reload(sys)
 sys.setdefaultencoding('GBK')
+part1 = ['time', 'weather', 'wind']
+part2 = ['tempFL', 'tempFH']
 #----------------------------------------------------------------------
 def parseWeatherXML(xmlFiles):
     weather = []
@@ -19,9 +23,16 @@ def parseWeatherXML(xmlFiles):
     			if not sf.text:
     				text = "None"
     			elif '' != sf.text.strip() and not sf.tag.startswith('tempF'):
-    				time_range.append(sf.text)
+                # elif '' != sf.text.strip() and (not sf.tag in part2):
+    				time_range.append(partition(sf))
     		weather.append(time_range)
     return weather
+
+def partition(elem):
+    if not elem.tag in part1:
+        return rules.rule(elem.text)
+    else:
+        return elem.text
 
 
 
