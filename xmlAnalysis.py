@@ -10,12 +10,12 @@ part2 = ['tempFL', 'tempFH']
 #----------------------------------------------------------------------
 def parseWeatherXML(xmlFiles):
     weather = []
-    gbk_parser = etree.XMLParser(encoding='utf8')
+    utf8_parser = etree.XMLParser(encoding='utf8')
     for xmlFile in xmlFiles.split(','):
     	f = open(xmlFile)
     	xml = f.read()
     	f.close()
-    	doc = etree.parse(StringIO(xml), parser=gbk_parser)
+    	doc = etree.parse(StringIO(xml), parser=utf8_parser)
     	
     	for df in doc.xpath('//time_range'):
     		time_range=[]
